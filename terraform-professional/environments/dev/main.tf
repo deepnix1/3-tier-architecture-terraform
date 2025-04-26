@@ -11,4 +11,18 @@ module "networking" {
     Project     = var.project_name
     ManagedBy   = "terraform"
   }
+}
+
+module "security" {
+  source = "../../modules/security"
+
+  vpc_id       = module.networking.vpc_id
+  environment  = "dev"
+  project_name = var.project_name
+
+  tags = {
+    Environment = "dev"
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
 } 
