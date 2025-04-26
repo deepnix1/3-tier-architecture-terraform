@@ -48,4 +48,29 @@ module "compute" {
     Project     = var.project_name
     ManagedBy   = "terraform"
   }
+}
+
+module "database" {
+  source = "../../modules/database"
+
+  vpc_id               = module.networking.vpc_id
+  private_subnet_ids   = module.networking.private_subnet_ids
+  rds_security_group_id = module.security.rds_security_group_id
+  environment          = "dev"
+  project_name         = var.project_name
+  
+  db_name              = "myappdb"
+  db_username          = "admin"
+  db_password          = "your-secure-password"  # In production, use AWS Secrets Manager or SSM Parameter Store
+  db_instance_class    = "db.t3.micro"
+  db_engine            = "mysql"
+  db_engine_version    = "8.0"
+  db_allocated_storage = 20
+  db_multi_az          = false
+  
+  tags = {
+    Environment = "dev"
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
 } 
