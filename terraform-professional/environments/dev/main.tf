@@ -25,4 +25,27 @@ module "security" {
     Project     = var.project_name
     ManagedBy   = "terraform"
   }
+}
+
+module "compute" {
+  source = "../../modules/compute"
+
+  vpc_id                  = module.networking.vpc_id
+  public_subnet_ids       = module.networking.public_subnet_ids
+  private_subnet_ids      = module.networking.private_subnet_ids
+  alb_security_group_id   = module.security.alb_security_group_id
+  ec2_security_group_id   = module.security.ec2_security_group_id
+  ec2_instance_profile_name = module.security.ec2_instance_profile_name
+  environment             = "dev"
+  project_name            = var.project_name
+  instance_type           = "t3.micro"
+  min_size                = 1
+  max_size                = 3
+  desired_capacity        = 2
+
+  tags = {
+    Environment = "dev"
+    Project     = var.project_name
+    ManagedBy   = "terraform"
+  }
 } 
