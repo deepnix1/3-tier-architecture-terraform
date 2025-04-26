@@ -1,5 +1,7 @@
 # Terraform AWS 3-Tier Architecture
 
+![3-Tier Architecture Diagram](../src/6580e9ee-31f9-442f-90f3-d7c21aee37ba.png)
+
 This project implements a production-grade 3-tier architecture on AWS using Terraform. The architecture includes:
 
 - VPC with public and private subnets
